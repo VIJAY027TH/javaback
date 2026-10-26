@@ -1,0 +1,909 @@
+Vijay ❤️ got you! You want me to teach Experiments 02–10 in the same style as Experiment 01 — starting with what the program is, why we need it, a real-world example, and then explaining how it works piece by piece.
+
+Let's make this your practical-exam learning guide. 🚀
+
+# Experiment 02: Hibernate ORM, JPA and MySQL CRUD
+
+## 1. What is this program, and why do we need it?
+
+Imagine you are building a college management system.
+
+1. You enter a student's name and department.
+2. The application saves the student's details into a MySQL database.
+3. You can view the student's details later.
+4. You can update the student's department.
+5. You can delete the student's record when necessary.
+
+This program teaches Java to communicate with a database using Hibernate ORM and JPA.
+
+### Technologies used
+
+- Java: The programming language.
+- JPA: Defines standard rules for mapping Java objects to database tables.
+- Hibernate: Implements JPA and handles much of the database interaction.
+- MySQL: Stores the actual data.
+- Maven: Manages dependencies and builds the project.
+
+## 2. Understand the main concept
+
+Without an ORM, you often write SQL statements and manually convert database rows into Java objects.
+
+With JPA and Hibernate, you can work with Java objects and let the ORM handle much of that mapping.
+
+For example, imagine this Java object:
+
+```
+Student student = new Student();
+student.setName("Vijay");
+student.setDepartment("Computer Applications");
+```
+
+Hibernate can persist that object into a database table when you use the appropriate JPA operations and transaction.
+
+## 3. What is CRUD?
+
+CRUD represents the four basic database operations.
+
+| Operation | Meaning       | Example               |
+| --------- | ------------- | --------------------- |
+| Create    | Insert data   | Add a student         |
+| Read      | Retrieve data | View student details  |
+| Update    | Modify data   | Change the department |
+| Delete    | Remove data   | Delete a student      |
+
+## 4. What is an entity?
+
+An entity is a Java class mapped to a database table.
+
+```
+@Entity
+public class Student {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String name;
+}
+```
+
+- `@Entity` tells JPA that the class represents a database entity.
+- `@Id` identifies the primary key.
+- `@GeneratedValue` configures automatic ID generation.
+- `private String name` represents the student's name.
+
+## 5. How do relationships work?
+
+Suppose one department has many students.
+
+```
+Department
+    |
+    | One department
+    |
+    +------ Student 1
+    +------ Student 2
+    +------ Student 3
+```
+
+JPA supports relationships such as:
+
+- `@OneToOne` — one record relates to one other record.
+- `@OneToMany` — one record relates to many records.
+- `@ManyToOne` — many records relate to one record.
+- `@ManyToMany` — many records relate to many records.
+
+## 6. How does the program work?
+
+1. Create entity classes.
+2. Configure the MySQL database connection.
+3. Create a repository or use an entity manager.
+4. Create Java objects.
+5. Save, retrieve, update, or delete them.
+6. Use transactions where required.
+7. Verify the results in MySQL.
+
+Remember: JPA defines the rules, Hibernate implements them, and MySQL stores the data.
+
+# Experiment 03: Spring MVC with Thymeleaf
+
+## 1. What is this program, and why do we need it?
+
+Imagine you are building a student registration website.
+
+1. A student opens the registration page.
+2. The student enters a name, email, and department.
+3. The form sends the details to the server.
+4. Spring MVC processes the submitted data.
+5. Thymeleaf displays a result page containing the student's details.
+
+This program teaches you how to build dynamic web pages using Spring MVC and Thymeleaf.
+
+## 2. What is Spring MVC?
+
+Spring MVC is a framework for building web applications using the Model-View-Controller design pattern.
+
+The three main parts are:
+
+Model
+
+Holds the data
+
+Controller
+
+Processes requests and prepares data
+
+View
+
+Displays the web page
+
+- Model: The information being handled.
+- View: The page the user sees.
+- Controller: The Java code that connects the request, data, and response.
+
+## 3. What is Thymeleaf?
+
+Thymeleaf is a server-side template engine. It allows you to display Java data inside HTML templates.
+
+For example:
+
+```
+<h2 th:text="${studentName}">Student Name</h2>
+```
+
+Here:
+
+- `th:text` is a Thymeleaf attribute.
+- `${studentName}` accesses a value supplied by the controller.
+- The final page displays the actual student name.
+
+If the controller supplies `"Vijay"`, the browser sees:
+
+```
+<h2>Vijay</h2>
+```
+
+## 4. How does the program work?
+
+1. The user opens a registration form.
+2. The browser displays an HTML page.
+3. The user submits the form.
+4. A Spring MVC controller receives the submitted fields.
+5. The controller puts the relevant data into the model.
+6. Thymeleaf uses that data to render the result page.
+7. The browser displays the generated HTML.
+
+Remember: Spring MVC handles the request; Thymeleaf renders the dynamic page.
+
+# Experiment 04: Spring Boot CRUD Application
+
+## 1. What is this program, and why do we need it?
+
+Imagine you are building an employee management application.
+
+1. An administrator adds an employee.
+2. The application saves the employee in MySQL.
+3. The administrator views all employees.
+4. The administrator updates an employee's salary or department.
+5. The administrator deletes an employee record.
+
+This experiment teaches you to build a complete database-backed application using Spring Boot.
+
+## 2. What is Spring Boot?
+
+Spring Boot simplifies the process of creating and running Java applications built with Spring.
+
+It provides auto-configuration and convenient dependency management, reducing the amount of setup you need to write manually.
+
+## 3. Understand the project layers
+
+A typical CRUD application separates responsibilities into layers.
+
+Controller
+
+Receives HTTP requests
+
+Service
+
+Contains business logic
+
+Repository
+
+Accesses the database
+
+MySQL Database
+
+Stores the records
+
+### What does each layer do?
+
+- Controller: Receives requests from the browser or client.
+- Service: Applies rules and business logic.
+- Repository: Reads and writes database records.
+- Entity: Represents the data stored in a table.
+- MySQL: Stores the persistent records.
+
+## 4. What is Spring Data JPA?
+
+Spring Data JPA simplifies database access by providing repository interfaces.
+
+For example:
+
+```
+public interface StudentRepository
+        extends JpaRepository<Student, Long> {
+}
+```
+
+This provides common database operations without requiring you to write every SQL statement manually.
+
+Examples include:
+
+```
+repository.save(student);
+repository.findAll();
+repository.findById(1L);
+repository.deleteById(1L);
+```
+
+## 5. How does the program work?
+
+1. Create a Spring Boot project.
+2. Configure MySQL.
+3. Create the entity class.
+4. Create the repository.
+5. Implement service logic.
+6. Create controller endpoints or web routes.
+7. Run the application.
+8. Test creating, reading, updating, and deleting records.
+
+Remember: Spring Boot runs the application, Spring Data JPA simplifies database access, and MySQL stores the records.
+
+# Experiment 05: RESTful API and Postman
+
+## 1. What is this program, and why do we need it?
+
+Imagine you are using a mobile application to view student details.
+
+The mobile app needs to communicate with a server to retrieve or modify information.
+
+1. The app requests a list of students.
+2. The server retrieves the data.
+3. The server returns the data as JSON.
+4. The app displays the students.
+5. The app can send requests to create, update, or delete records.
+
+A RESTful API provides a standard way for different applications to communicate over HTTP.
+
+## 2. What is an API?
+
+API stands for Application Programming Interface.
+
+It defines how one software application can request functionality or data from another.
+
+For example:
+
+```
+GET http://localhost:8080/api/students
+```
+
+This might request all student records from a running application.
+
+## 3. What is REST?
+
+REST is an architectural style commonly used to design web APIs around resources.
+
+For example, the resource is `students`.
+
+| HTTP method | Purpose                   | Example          |
+| ----------- | ------------------------- | ---------------- |
+| GET         | Read data                 | Get all students |
+| POST        | Create data               | Add a student    |
+| PUT         | Replace/update a resource | Update a student |
+| PATCH       | Partially update data     | Change an email  |
+| DELETE      | Delete data               | Remove a student |
+
+The precise behavior of PUT and PATCH depends on the API's implementation.
+
+## 4. What is JSON?
+
+JSON stands for JavaScript Object Notation. It is a text format used to exchange structured data.
+
+Example request body:
+
+```
+{
+  "name": "Vijay",
+  "department": "MCA",
+  "email": "vijay@example.com"
+}
+```
+
+The API can accept this data, process it, and return a JSON response.
+
+## 5. What is Postman?
+
+Postman is a tool for sending HTTP requests and inspecting responses without needing to build a frontend.
+
+For example, you can send:
+
+- A GET request to retrieve students.
+- A POST request to create a student.
+- A PUT request to update a student.
+- A DELETE request to remove a student.
+
+You can inspect the response body, HTTP status code, and response headers.
+
+## 6. What is an HTTP status code?
+
+Some common status codes are:
+
+- `200 OK` — the request succeeded.
+- `201 Created` — a resource was created.
+- `400 Bad Request` — the request contains invalid data.
+- `401 Unauthorized` — authentication is missing or invalid.
+- `403 Forbidden` — the client lacks permission.
+- `404 Not Found` — the resource was not found.
+- `500 Internal Server Error` — an unexpected server error occurred.
+
+## 7. How does the program work?
+
+1. Build a REST controller in Spring Boot.
+2. Define endpoints for the required resources.
+3. Accept JSON input.
+4. Process requests and interact with the service or database.
+5. Return JSON responses and suitable HTTP status codes.
+6. Open Postman.
+7. Send requests to the running application.
+8. Verify responses and test error scenarios.
+
+Remember: The REST API provides the endpoints; Postman lets you test them.
+
+# Experiment 06: Spring Security Authentication and Authorization
+
+## 1. What is this program, and why do we need it?
+
+Imagine you are building an admin dashboard for a college.
+
+Students can view their own information, but only administrators can delete student records.
+
+1. A user opens the application.
+2. The user logs in.
+3. The system verifies the user's identity.
+4. The system determines which actions that user is allowed to perform.
+5. Access is granted or denied according to the configured rules.
+
+This experiment teaches you how to protect a Spring Boot application using Spring Security.
+
+## 2. What is authentication?
+
+Authentication answers:
+
+"Who are you?"
+
+For example, the application checks a user's login credentials.
+
+If the credentials are valid, the application establishes an authenticated identity.
+
+## 3. What is authorization?
+
+Authorization answers:
+
+"What are you allowed to do?"
+
+For example:
+
+- A `USER` can view permitted student information.
+- An `ADMIN` can view, create, update, or delete student records.
+
+Authentication and authorization are related, but they are not the same.
+
+## 4. What is Spring Security?
+
+Spring Security is a framework that helps secure Java web applications. It supports authentication, authorization, and other security protections.
+
+For example, access rules can be configured like this:
+
+```
+.requestMatchers("/admin/**").hasRole("ADMIN")
+.requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
+```
+
+This means:
+
+- `/admin/**` requires the `ADMIN` role.
+- `/user/**` permits either `USER` or `ADMIN`.
+
+Spring Security's `hasRole("ADMIN")` convention normally checks for the authority `ROLE_ADMIN`.
+
+These rules must be placed in the appropriate security configuration, and the application must establish the user's roles correctly.
+
+## 5. What is BCrypt?
+
+BCrypt is a password-hashing algorithm.
+
+Instead of storing users' passwords as readable text, an application can store password hashes and verify entered passwords against them.
+
+For example:
+
+```
+PasswordEncoder encoder = new BCryptPasswordEncoder();
+
+String hashedPassword = encoder.encode("example-password");
+```
+
+The stored hash should be used for verification, not treated as an encrypted password that can be decrypted.
+
+## 6. How does the program work?
+
+1. Configure Spring Security.
+2. Define how users are authenticated.
+3. Define the application roles.
+4. Configure endpoint access rules.
+5. Implement login and logout.
+6. Store passwords securely using a suitable password encoder.
+7. Test access with different roles.
+8. Confirm that unauthorized requests are rejected.
+
+Remember: Authentication verifies identity; authorization controls access.
+
+# Experiment 07: Exception Handling and Validation in Spring Boot
+
+## 1. What is this program, and why do we need it?
+
+Imagine a student registration form.
+
+A user submits:
+
+- An empty name.
+- An invalid email address.
+- A negative age.
+
+The application should not blindly accept these values or crash with an unclear error.
+
+Instead, it should explain what went wrong.
+
+This experiment teaches you to validate input and handle application errors consistently.
+
+## 2. What is exception handling?
+
+An exception is an event that interrupts the normal execution of a program.
+
+For example, the application tries to find a student with ID `100`, but that student does not exist.
+
+The application can throw a custom exception, such as `StudentNotFoundException`, and return an appropriate response.
+
+## 3. What is `@ControllerAdvice`?
+
+`@ControllerAdvice` lets you define logic that can handle exceptions across multiple Spring controllers.
+
+For example:
+
+```
+@ControllerAdvice
+public class GlobalExceptionHandler {
+
+    @ExceptionHandler(StudentNotFoundException.class)
+    public ResponseEntity<String> handleNotFound(
+            StudentNotFoundException ex) {
+
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(ex.getMessage());
+    }
+}
+```
+
+Let's understand the important annotations:
+
+- `@ControllerAdvice` — provides shared controller advice.
+- `@ExceptionHandler` — identifies a method that handles a particular exception.
+- `ResponseEntity` — allows you to control the HTTP response and status.
+- `HttpStatus.NOT_FOUND` — represents HTTP status `404`.
+
+## 4. What is Bean Validation?
+
+Bean Validation allows you to specify rules for your data using annotations.
+
+Example:
+
+```
+public class StudentRequest {
+
+    @NotBlank
+    private String name;
+
+    @Email
+    private String email;
+
+    @Min(18)
+    @Max(100)
+    private int age;
+}
+```
+
+What do these annotations mean?
+
+- `@NotBlank` — the name must contain non-whitespace characters.
+- `@Email` — the email must satisfy the validator's email-format rule.
+- `@Min(18)` — the age must be at least 18.
+- `@Max(100)` — the age must not exceed 100.
+
+To trigger validation on an incoming request, use `@Valid` where appropriate and configure the validation dependency.
+
+## 5. What happens when input is invalid?
+
+Suppose the user submits:
+
+```
+{
+  "name": "",
+  "email": "wrong-email",
+  "age": 12
+}
+```
+
+The validation system identifies the fields that violate the configured constraints.
+
+The application can return a `400 Bad Request` response containing helpful validation messages.
+
+## 6. How does the program work?
+
+1. Define validation rules on request fields.
+2. Receive user input.
+3. Trigger validation with `@Valid`.
+4. Detect invalid values.
+5. Handle validation errors centrally.
+6. Create custom exceptions for application-specific errors.
+7. Use `@ControllerAdvice` to produce consistent responses.
+8. Test both valid and invalid requests.
+
+Remember: Validation prevents invalid input from proceeding; exception handling manages errors that occur during processing.
+
+# Experiment 08: Logging and Monitoring in Spring Boot
+
+## 1. What is this program, and why do we need it?
+
+Imagine your application works perfectly during testing but fails after deployment.
+
+A user reports that an operation failed, but you do not know why.
+
+Logging and monitoring help you investigate the application's behavior and health.
+
+1. The application receives a request.
+2. It records important events in logs.
+3. If an error occurs, the application records useful diagnostic information.
+4. Monitoring endpoints expose selected information about the application's state.
+5. A developer or administrator checks the logs and health information.
+
+This experiment teaches you how to observe and troubleshoot a running application.
+
+## 2. What is logging?
+
+Logging records information about what an application is doing.
+
+Spring Boot commonly uses SLF4J as a logging API and Logback as its default logging implementation.
+
+Example:
+
+```
+private static final Logger logger =
+        LoggerFactory.getLogger(StudentService.class);
+```
+
+This creates a logger for the class.
+
+You can then record events:
+
+```
+logger.info("Student service started");
+logger.warn("Student record is incomplete");
+logger.error("Unable to process student request");
+```
+
+## 3. What are logging levels?
+
+| Level | Purpose                              |
+| ----- | ------------------------------------ |
+| TRACE | Very detailed diagnostic information |
+| DEBUG | Information useful during debugging  |
+| INFO  | Normal application events            |
+| WARN  | Potential problems                   |
+| ERROR | Failures that require attention      |
+
+For example, `INFO` might record that a student was created, while `ERROR` might record that an operation failed unexpectedly.
+
+Never log passwords, authentication tokens, or other sensitive information.
+
+## 4. What is Spring Boot Actuator?
+
+Spring Boot Actuator provides endpoints and features for monitoring and managing a running application.
+
+One example is:
+
+```
+/actuator/health
+```
+
+When correctly configured, this endpoint provides health information about the application.
+
+A response might look like:
+
+```
+{
+  "status": "UP"
+}
+```
+
+This indicates that the application reports itself as operational. It does not necessarily mean every dependent service or business operation is working correctly.
+
+## 5. Why is monitoring important?
+
+Monitoring helps developers and administrators understand whether the application is running and whether important dependencies are healthy.
+
+For example, database health indicators can help identify database connectivity issues when the appropriate integration is configured.
+
+Actuator endpoints must be configured carefully. Do not expose sensitive operational details publicly.
+
+## 6. How does the program work?
+
+1. Add the appropriate Actuator dependency.
+2. Configure logging levels.
+3. Create or use a logger in application classes.
+4. Record meaningful events and failures.
+5. Configure the health endpoint.
+6. Start the application.
+7. inspect logs and test the health endpoint.
+8. Secure sensitive monitoring endpoints.
+
+Remember: Logging tells you what happened; monitoring helps you assess the application's current condition.
+
+# Experiment 09: Unit Testing and Integration Testing
+
+## 1. What is this program, and why do we need it?
+
+Imagine you modify your student management application's service logic.
+
+The application still starts, but a previously working feature may now be broken.
+
+Testing helps you find these problems before users encounter them.
+
+1. You write code.
+2. You write tests that check its expected behavior.
+3. You execute the tests.
+4. The test framework reports which tests pass or fail.
+5. You correct problems and run the tests again.
+
+This experiment teaches you to test Spring Boot applications using JUnit, Mockito, and MockMvc.
+
+## 2. What is unit testing?
+
+Unit testing checks a small, isolated piece of code, such as a method in a service class.
+
+For example, a service may calculate the total price of an order. A unit test checks whether the method returns the expected result for different inputs.
+
+Unit tests are usually fast and focus on one component at a time.
+
+## 3. What is JUnit?
+
+JUnit is a Java testing framework.
+
+Example:
+
+```
+@Test
+void shouldReturnStudentName() {
+    String name = "Vijay";
+
+    assertEquals("Vijay", name);
+}
+```
+
+- `@Test` marks the method as a test.
+- `assertEquals()` checks whether the expected and actual values match.
+
+If the values do not match, the test fails.
+
+## 4. What is Mockito?
+
+Mockito allows you to create mock objects for dependencies.
+
+Suppose a student service uses a repository to find student records. A unit test can mock that repository instead of connecting to a real database.
+
+This allows you to test the service's logic independently.
+
+## 5. What is integration testing?
+
+Integration testing checks whether multiple components work together correctly.
+
+For example, you may test whether a Spring controller processes an HTTP request and returns the expected response.
+
+## 6. What is MockMvc?
+
+MockMvc lets you test Spring MVC request handling without launching a real HTTP server.
+
+Example:
+
+```
+mockMvc.perform(get("/api/students"))
+       .andExpect(status().isOk());
+```
+
+This sends a simulated GET request to the configured MVC application and checks that the response status is `200 OK`.
+
+The test requires the appropriate Spring test setup and MockMvc configuration.
+
+## 7. Unit test vs integration test
+
+| Unit test                      | Integration test                           |
+| ------------------------------ | ------------------------------------------ |
+| Tests a small component        | Tests interactions between components      |
+| Often uses mocked dependencies | May use real application components        |
+| Usually executes quickly       | May take longer                            |
+| Finds logic errors             | Finds configuration and integration errors |
+
+## 8. How does the program work?
+
+1. Add JUnit and Spring Boot testing dependencies.
+2. Write unit tests for business logic.
+3. Use Mockito to mock dependencies where appropriate.
+4. Write controller tests using MockMvc.
+5. Test successful requests and error scenarios.
+6. Run the test suite with Maven.
+7. Read the test report and fix failures.
+
+For a Maven project, a common command is:
+
+```
+mvn test
+```
+
+Remember: JUnit provides the test framework, Mockito isolates dependencies, and MockMvc tests web request handling.
+
+# Experiment 10: Packaging and Deployment of Spring Boot Applications
+
+## 1. What is this program, and why do we need it?
+
+Imagine you have completed your Spring Boot application on your laptop.
+
+Now you want another person to run it, or you want to make it available on a server.
+
+You need to package the application and deploy it to the target environment.
+
+1. You finish writing the source code.
+2. Maven compiles the project.
+3. Maven packages the application into an executable JAR.
+4. You transfer the JAR to the target machine.
+5. You configure its environment and start it.
+6. Users or other applications can access it if the server is reachable and correctly configured.
+
+This experiment teaches you how to turn a Spring Boot project into a deployable application.
+
+## 2. What is Maven?
+
+Maven is a build and dependency management tool.
+
+It can download dependencies, compile Java source code, run tests, and package applications.
+
+The main Maven configuration file is:
+
+```
+pom.xml
+```
+
+It contains information about the project, dependencies, plugins, and build configuration.
+
+## 3. What is a JAR file?
+
+JAR stands for Java Archive.
+
+A Spring Boot executable JAR packages the application and its required dependencies in a format that can be launched using Java.
+
+For example:
+
+```
+student-app.jar
+```
+
+## 4. How do you build the application?
+
+From the project directory, execute:
+
+```
+mvn clean package
+```
+
+What do these commands mean?
+
+- `mvn` runs Maven.
+- `clean` removes previous build output.
+- `package` compiles the code, runs the configured build lifecycle, and packages the application.
+
+If the build succeeds, the executable JAR is commonly created under:
+
+```
+target/
+```
+
+The exact filename depends on your Maven configuration.
+
+## 5. How do you run the JAR?
+
+Use:
+
+```
+java -jar target/student-app.jar
+```
+
+Replace `student-app.jar` with the actual filename produced by your build.
+
+If the application starts successfully, it will listen on the configured server port, often `8080` by default.
+
+You can then access the application using the appropriate URL, for example:
+
+```
+http://localhost:8080/
+```
+
+The actual route depends on the application's controller mappings.
+
+## 6. What is deployment?
+
+Deployment means making the application available in its intended execution environment.
+
+Possible environments include:
+
+- A local computer.
+- A virtual machine or dedicated server.
+- A container-based environment.
+- A cloud hosting platform.
+
+A successful local build does not automatically mean the application has been deployed to the cloud.
+
+## 7. What about configuration and passwords?
+
+Database URLs, usernames, passwords, and other environment-specific values should be configured appropriately for each environment.
+
+For example, a server might receive its database configuration through environment variables rather than hardcoded credentials.
+
+Never upload production passwords or secret API keys to a public repository.
+
+## 8. How does the program work?
+
+1. Complete the Spring Boot application.
+2. Configure its dependencies and build plugins.
+3. Run tests.
+4. Build the executable JAR.
+5. Confirm the generated artifact exists.
+6. Start the application using `java -jar`.
+7. Check the startup logs.
+8. Test the application's endpoints.
+9. If deploying remotely, configure the target environment and verify that the deployed application is reachable.
+
+Remember: Maven builds the package, the executable JAR contains the application, and deployment makes it available in the target environment.
+
+# Final revision: All nine experiments at a glance
+
+| Experiment | Main purpose                                 | Key technology                       |
+| ---------- | -------------------------------------------- | ------------------------------------ |
+| 02         | Database CRUD and relationships              | Hibernate, JPA, MySQL                |
+| 03         | Dynamic server-rendered web pages            | Spring MVC, Thymeleaf                |
+| 04         | Database-backed CRUD application             | Spring Boot, Spring Data JPA         |
+| 05         | Build and test HTTP APIs                     | REST, Postman                        |
+| 06         | Protect users and endpoints                  | Spring Security                      |
+| 07         | Validate input and handle errors             | Bean Validation, `@ControllerAdvice` |
+| 08         | Record events and monitor application health | SLF4J, Logback, Actuator             |
+| 09         | Verify code and component behavior           | JUnit, Mockito, MockMvc              |
+| 10         | Package and deploy applications              | Maven, executable JAR                |
+
+## How to study these for your practical exam
+
+For each experiment, learn these five things in order:
+
+1. Aim — what the program is supposed to achieve.
+2. Concept — why the technology is needed.
+3. Code — what the main classes and annotations do.
+4. Execution — how to run the application and test it.
+5. Result — what successful output should look like.
+
+One important note: these explanations cover the core concepts and representative code, not every line of your specific Exercises 02–10 source files. If you share the complete code pages from your lab manual, I can explain each actual file line by line in the same style as Experiment 01.
